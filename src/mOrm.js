@@ -8,9 +8,6 @@ export default class mOrm {
   // async getEntity()
 
   async createConnection(dbConfig = {}) {
-    console.log('dbConfig', dbConfig.entities)
-    console.log('dbConfig', dbConfig.entities[0].name)
-    console.log('dbConfig', dbConfig.entities[0].columns)
 
     this.entities = {
       Student: dbConfig.entities[0],
@@ -21,12 +18,8 @@ export default class mOrm {
     if (typeof dbConfig == 'string') {
       // postgres://user:pass@host:port/db
       // string => object
-
-      console.log('dbConfig', dbConfig)
-
       let pattern = /(.*):\/\/(.*):(.*)@(.*):(.*)\/(.*)/;
       let matches = dbConfig.match(pattern);
-      console.log(matches)
 
       this.config = {
         type: "postgres",
@@ -36,8 +29,6 @@ export default class mOrm {
         password: matches[3],
         database: matches[6]
       }
-
-      console.log('this.config', this.config)
 
     } else {
       if (isEmpty(dbConfig)) {
@@ -52,9 +43,7 @@ export default class mOrm {
     }
 
     const { host, port, username, password, database } = this.config
-    console.log(host, port, username, password, database)
-    console.log(this.config.type)
-    console.log('FFFFF ::', this.entities)
+
 
     switch (this.config.type) {
       case 'postgres':

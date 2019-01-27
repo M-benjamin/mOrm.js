@@ -25,7 +25,7 @@ import Note from './entities/note'
 
     // or:
     // orm.createConnection('postgres://efrei-paris:@localhost:5432/db_postgres')
-    console.log('INSIDE')
+
   } catch (err) {
     console.log(err)
     process.exit(-1)
