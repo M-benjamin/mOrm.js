@@ -1,7 +1,7 @@
 import mOrm from './mOrm'
 import Student from './entities/student'
-// import Project from './entities/project'
-// import Note from './entities/note'
+import Project from './entities/project'
+import Note from './entities/note'
 
 // Let's Rock!
 (async () => {
@@ -17,9 +17,9 @@ import Student from './entities/student'
       database: 'db_postgres',
       synchronize: true,
       entities: [
-        Student
-        // Project,
-        // Note
+        Student,
+        Project,
+        Note,
       ]
     })
 

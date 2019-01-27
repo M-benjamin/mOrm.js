@@ -8,29 +8,21 @@ export default class mOrm {
   // async getEntity()
 
   async createConnection(dbConfig = {}) {
-    console.log('dbConfig', dbConfig)
-    console.log('element', dbConfig.entities);
+    console.log('dbConfig', dbConfig.entities)
+    console.log('dbConfig', dbConfig.entities[0].name)
+    console.log('dbConfig', dbConfig.entities[0].columns)
 
-    // [Student] = dbConfig.entities.name;
-    // this.entities = { Student: Student }
-
-    dbConfig.entities.forEach(element => {
-      console.log(element.name)
-      this.entities = {
-        Student: element.name
-      }
-    });
-
-    console.log('element', this.entities);
-
+    this.entities = {
+      Student: dbConfig.entities[0],
+      Project: dbConfig.entities[1],
+      Note: dbConfig.entities[2]
+    }
 
     if (typeof dbConfig == 'string') {
       // postgres://user:pass@host:port/db
       // string => object
 
       console.log('dbConfig', dbConfig)
-
-      // let pattern = /^(?:([^:\/?#\s]+):\/{2})?(?:([^@\/?#\s]+)@)?([^\/?#\s]+)?(?:\/([^?#\s]*))?(?:[?]([^#\s]+))?\S*$/;
 
       let pattern = /(.*):\/\/(.*):(.*)@(.*):(.*)\/(.*)/;
       let matches = dbConfig.match(pattern);
@@ -59,13 +51,14 @@ export default class mOrm {
       }
     }
 
-    const { host, port, username, pass } = this.config
-    console.log(host, port, username, pass)
+    const { host, port, username, password, database } = this.config
+    console.log(host, port, username, password, database)
     console.log(this.config.type)
+    console.log('FFFFF ::', this.entities)
 
     switch (this.config.type) {
       case 'postgres':
-        this.dbInstance = new PostgresSQL({ host, port, username, pass })
+        this.dbInstance = new PostgresSQL({ host, port, username, password, database, entities: this.entities })
         break
     }
 
